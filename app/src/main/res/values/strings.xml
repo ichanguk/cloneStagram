@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">cloneStagram</string>
-    <string name="facebook_app_id">397161661812167</string>
-    <string name="fb_login_protocol_scheme">fb397161661812167</string>
+    <string name="facebook_app_id">1098521248104043</string>
+    <string name="fb_login_protocol_scheme">fb1098521248104043</string>
+    <string name="facebook_client_token">2a1d0378f9f3acecae57ca2434f24c54</string>
 
 
     <!-- Sign In -->

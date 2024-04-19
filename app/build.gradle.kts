@@ -40,6 +40,8 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+    implementation ("com.facebook.android:facebook-android-sdk:[8,9)")
+    implementation("com.facebook.android:facebook-login:latest.release")
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
     implementation(libs.androidx.appcompat)
