@@ -7,12 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:905164990116:android:711f906b70fa36c44ce831",
+        "mobilesdk_app_id": "1:905164990116:android:cbd6bb708e37d30c4ce831",
         "android_client_info": {
           "package_name": "com.example.clonestagram"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "905164990116-3da00ao075rhqjt8k93an64n06u5k7g8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.clonestagram",
+            "certificate_hash": "a71a145523107b6bb5a547a4b5d5eb42bba8844e"
+          }
+        },
+        {
+          "client_id": "905164990116-87pkt6kncmfpgu6snc9han9v7bpidh96.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAenL1ISkq6zlk6BT-9zEIMseCxN4x7yRc"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905164990116-87pkt6kncmfpgu6snc9han9v7bpidh96.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
