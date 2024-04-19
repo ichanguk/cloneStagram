@@ -7,4 +7,3 @@
 - 이미지, resource 출처 : https://github.com/you6878/howlstagram
 
 ## *Contents*
-<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%99%94%EB%A9%B4.png width="200">
