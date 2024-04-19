@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
+
+    id("kotlin-android") // Kotlin 안드로이드 플러그인 추가
 }
 
 android {
