@@ -76,8 +76,8 @@ class LoginActivity : AppCompatActivity() {
             //First step
             googleLogin()
         }
-        val accessToken = AccessToken.getCurrentAccessToken()
-        val isLoggedIn = accessToken != null && !accessToken.isExpired
+        var accessToken = AccessToken.getCurrentAccessToken()
+        var isLoggedIn = accessToken != null && !accessToken.isExpired
         if (isLoggedIn) {
             LoginManager.getInstance().logOut()
         }
@@ -88,6 +88,13 @@ class LoginActivity : AppCompatActivity() {
         val facebookSignInButton: LoginButton = findViewById(R.id.facebook_login_button)
         facebookSignInButton.setReadPermissions(Arrays.asList("public_profile"))
 
+        facebookSignInButton.setOnClickListener {
+            accessToken = AccessToken.getCurrentAccessToken()
+            isLoggedIn = accessToken != null && !accessToken!!.isExpired
+            if (isLoggedIn) {
+                LoginManager.getInstance().logOut()
+            }
+        }
 
         facebookSignInButton.registerCallback(callbackManager!!, object : FacebookCallback<LoginResult> {
             override fun onCancel() {

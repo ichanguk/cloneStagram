@@ -48,6 +48,7 @@ class AddPhotoActivity : AppCompatActivity() {
 
         // 앨범 열기
         var photoPickerIntent = Intent(Intent.ACTION_PICK)
+        photoPickerIntent.type = "image/*"
         startActivityForResult(photoPickerIntent, PICK_IMAGE_FROM_ALBUM)
 
         // 이미지 업로드 이벤트
