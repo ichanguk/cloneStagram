@@ -38,12 +38,14 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.firebase:firebase-database-ktx:20.0.4")
     implementation ("com.google.firebase:firebase-storage-ktx")
     implementation(libs.androidx.core.ktx)
     implementation ("com.facebook.android:facebook-android-sdk:[8,9)")
     implementation("com.facebook.android:facebook-login:latest.release")
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore:24.11.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -52,6 +54,7 @@ dependencies {
     implementation(libs.design)
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
+    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
