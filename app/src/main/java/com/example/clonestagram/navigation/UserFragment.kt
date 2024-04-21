@@ -19,7 +19,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.clonestagram.LoginActivity
 import com.example.clonestagram.MainActivity
 import com.example.clonestagram.R
-import com.example.clonestagram.databinding.ActivityMainBinding
 import com.example.clonestagram.databinding.FragmentUserBinding
 import com.example.clonestagram.navigation.model.ContentDTO
 import com.example.clonestagram.navigation.model.FollowDTO
