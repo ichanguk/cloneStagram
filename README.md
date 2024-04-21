@@ -7,25 +7,26 @@
 - 이미지, resource 출처 : https://github.com/you6878/howlstagram
 
 ## *Contents*
+1. 로그인 화면　　　　　2. 게시물 업로드 화면　　　　　3. 상세 화면
+<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%99%94%EB%A9%B42.png width="200"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/addPhoto.png width="200"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/detail.png width="200">
+
+4. 유저 페이지 화면　　　　　5. 격자무늬 사진 페이지 화면
+<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/user.png width="200"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EA%B2%A9%EC%9E%90.png width="200">
+
 1. 로그인 화면
-<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%99%94%EB%A9%B42.png width="200">
 - 회원가입 및 로그인 기능
 
 2. 게시물 업로드 화면
-<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%99%94%EB%A9%B42.png width="200">
 - 게시물 업로드 기능
 
 3. 상세 화면
-<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/detail.png width="200">
 - 좋아요 기능
 - 프로필 사진을 눌러 해당 유저 프로필 페이지로 이동 기능
 
 4. 유저 페이지 화면
-<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/user.png width="200">
 - 유저 정보(프로필, 팔로워, 팔로잉) 및 게시물
 
 5. 격자무늬 사진 페이지 화면
-<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EA%B2%A9%EC%9E%90.png width="200">
 - 게시물들
 
 ## *추가 예정*
