@@ -9,11 +9,11 @@
 ## *Contents*
 1. 로그인 화면　　　　　2. 게시물 업로드 화면　　　　　3. 상세 화면
 
-<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%99%94%EB%A9%B42.png width="200"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/addPhoto.png width="200"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/detail.png width="200">
+<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%99%94%EB%A9%B42.png width="200"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/addPhoto.png width="200" height="550"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/detail.png width="200" height="550">
 
 4. 유저 페이지 화면　　　　　5. 격자무늬 사진 페이지 화면
 
-<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/user.png width="200"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EA%B2%A9%EC%9E%90.png width="200">
+<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/user.png width="200" height="550"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EA%B2%A9%EC%9E%90.png width="200" height="550">
 
 1. 로그인 화면
 - 회원가입 및 로그인 기능
