@@ -1,6 +1,7 @@
 package com.example.clonestagram.navigation
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,7 @@ import com.example.clonestagram.R
 import com.example.clonestagram.databinding.ActivityMainBinding
 import com.example.clonestagram.databinding.FragmentUserBinding
 import com.example.clonestagram.navigation.model.ContentDTO
+import com.example.clonestagram.navigation.model.FollowDTO
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,6 +36,9 @@ class UserFragment : Fragment() {
     var currentUserUid:String? = null
     var _binding: FragmentUserBinding? = null
     val binding get() = _binding!!
+    companion object {
+        var PICK_PROFILE_FROM_ALBOM = 10
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,10 +71,100 @@ class UserFragment : Fragment() {
             mainActivity?.findViewById<ImageView>(R.id.toolbar_title_image)?.visibility = View.GONE
             mainActivity?.findViewById<TextView>(R.id.toolbar_username)?.visibility = View.VISIBLE
             mainActivity?.findViewById<ImageView>(R.id.toolbar_btn_back)?.visibility = View.VISIBLE
+            binding.accountBtnFollowSignout.setOnClickListener {
+                requestFollow()
+            }
         }
         binding.accountRecyclerview.adapter = UserFragmentRecyclerViewAdapter()
         binding.accountRecyclerview.layoutManager = GridLayoutManager(activity, 3)
+
+        binding.accountIvProfile.setOnClickListener {
+            var photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            activity?.startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBOM)
+        }
+        getProfileImage()
+        getFollowerAndFollowing()
         return binding.root
+    }
+    fun getFollowerAndFollowing() {
+        firestore?.collection("users")?.document(uid!!)?.addSnapshotListener { documentSnapshot, firbaseFirestoreException ->
+            if (documentSnapshot == null) {
+                return@addSnapshotListener
+            }
+            var followDTO = documentSnapshot.toObject(FollowDTO::class.java)
+            if (followDTO?.followingCount != null) {
+                binding.accountTvFollowingCount.text = followDTO?.followingCount?.toString()
+            }
+            if (followDTO?.followerCount != null) {
+                binding.accountTvFollowerCount.text = followDTO?.followerCount?.toString()
+                if (followDTO?.followers?.containsKey(currentUserUid!!) == true) {
+                    binding.accountBtnFollowSignout.text = getString(R.string.follow_cancel)
+                    binding.accountBtnFollowSignout.background?.setColorFilter(ContextCompat.getColor(requireActivity(), R.color.colorLightGray), PorterDuff.Mode.MULTIPLY)
+                } else {
+                    if (uid != currentUserUid) {
+                        binding.accountBtnFollowSignout.text = getString(R.string.follow)
+                        binding.accountBtnFollowSignout.background?.colorFilter = null
+                    }
+                }
+            }
+
+        }
+    }
+    fun requestFollow() {
+        // 내 계정 데이터 저장
+        var tsDocFollowing = firestore?.collection("users")?.document(currentUserUid!!)
+        firestore?.runTransaction { transaction ->
+            var followDTO = transaction.get(tsDocFollowing!!).toObject(FollowDTO::class.java)
+            if (followDTO == null) {
+                followDTO = FollowDTO()
+                followDTO!!.followingCount = 1
+                followDTO!!.followers[uid!!] = true
+
+                transaction.set(tsDocFollowing, followDTO)
+                return@runTransaction
+            }
+
+            if (followDTO.followings.containsKey(uid)) {
+                // unfollow
+                followDTO?.followingCount = followDTO?.followingCount!! - 1
+                followDTO?.followers?.remove(uid)
+            } else {
+                // follow
+                followDTO?.followingCount = followDTO?.followingCount!! + 1
+                followDTO?.followers?.set(uid!!, true)
+            }
+            transaction.set(tsDocFollowing, followDTO)
+            return@runTransaction
+        }
+        // 제3자 데이터 저장
+        var tsDocFollower = firestore?.collection("users")?.document(uid!!)
+        firestore?.runTransaction { transaction ->
+            var followDTO = transaction.get(tsDocFollower!!).toObject(FollowDTO::class.java)
+            if (followDTO == null) {
+                followDTO = FollowDTO()
+                followDTO!!.followerCount = 1
+                followDTO!!.followers[currentUserUid!!] = true
+
+                transaction.set(tsDocFollower, followDTO!!)
+                return@runTransaction
+
+            }
+
+            if (followDTO!!.followers.containsKey(currentUserUid)) {
+                // unfollow
+                followDTO?.followerCount = followDTO?.followerCount!! - 1
+                followDTO?.followers?.remove(currentUserUid)
+            } else {
+                // follow
+                followDTO?.followerCount = followDTO?.followerCount!! + 1
+                followDTO?.followers?.set(currentUserUid!!, true)
+            }
+            transaction.set(tsDocFollower, followDTO!!)
+            return@runTransaction
+
+
+        }
     }
 
     override fun onDestroyView() {
@@ -112,5 +208,16 @@ class UserFragment : Fragment() {
             Glide.with(holder.imageView.context).load(contentDTOs[position].imageUrl).apply(RequestOptions().centerCrop()).into(imageview)
         }
 
+    }
+    fun getProfileImage() {
+        firestore?.collection("profileImages")?.document(uid!!)?.addSnapshotListener { documentSnapshot, error ->
+            if (documentSnapshot == null) {
+                return@addSnapshotListener
+            }
+            if (documentSnapshot.data != null) {
+                var url = documentSnapshot?.data!!["image"]
+                Glide.with(requireActivity()).load(url).apply(RequestOptions().circleCrop()).into(binding.accountIvProfile)
+            }
+        }
     }
 }
