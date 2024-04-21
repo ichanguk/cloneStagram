@@ -49,6 +49,9 @@ class DetailViewFragment : Fragment() {
             firestore?.collection("images")?.orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFireStoreException ->
                 contentDTOs.clear()
                 contentUidList.clear()
+                if (querySnapshot == null) {
+                    return@addSnapshotListener
+                }
                 for (snapshot in querySnapshot!!.documents) {
                     var item = snapshot.toObject(ContentDTO::class.java)
                     contentDTOs.add(item!!)
@@ -99,6 +102,16 @@ class DetailViewFragment : Fragment() {
             } else {
                 // unlike 상태
                 viewholder.findViewById<ImageView>(R.id.detailviewitem_favorite_imageview).setImageResource(R.drawable.ic_favorite_border)
+            }
+
+            viewholder.findViewById<ImageView>(R.id.detailviewitem_profile_image).setOnClickListener {
+                var fragment = UserFragment()
+                var bundle = Bundle()
+                bundle.putString("destinationUid", contentDTOs[position].uid)
+                bundle.putString("userId", contentDTOs[position].userId)
+                fragment.arguments = bundle
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+
             }
 
         }

@@ -4,6 +4,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -37,6 +41,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        setToolbarDefault()
         when(p0.itemId) {
             R.id.action_home -> {
                 var detailViewFragment = DetailViewFragment()
@@ -70,5 +75,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
         return false
+    }
+
+    fun setToolbarDefault() {
+        findViewById<TextView>(R.id.toolbar_username).visibility = View.GONE
+        findViewById<ImageView>(R.id.toolbar_btn_back).visibility = View.GONE
+        findViewById<ImageView>(R.id.toolbar_title_image).visibility = View.VISIBLE
+
     }
 }

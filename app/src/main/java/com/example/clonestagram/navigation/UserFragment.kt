@@ -1,20 +1,26 @@
 package com.example.clonestagram.navigation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.clonestagram.LoginActivity
+import com.example.clonestagram.MainActivity
 import com.example.clonestagram.R
 import com.example.clonestagram.databinding.ActivityMainBinding
 import com.example.clonestagram.databinding.FragmentUserBinding
 import com.example.clonestagram.navigation.model.ContentDTO
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
@@ -24,6 +30,7 @@ class UserFragment : Fragment() {
     var firestore: FirebaseFirestore? = null
     var uid: String? = null
     var auth: FirebaseAuth? = null
+    var currentUserUid:String? = null
     var _binding: FragmentUserBinding? = null
     val binding get() = _binding!!
 
@@ -36,7 +43,29 @@ class UserFragment : Fragment() {
         uid = arguments?.getString("destinationUid")
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
+        currentUserUid = auth?.currentUser?.uid
 
+        if (uid == currentUserUid) {
+            // my page
+            binding.accountBtnFollowSignout.text = getString(R.string.signout)
+            binding.accountBtnFollowSignout.setOnClickListener {
+                activity?.finish()
+                startActivity(Intent(activity, LoginActivity::class.java))
+                auth?.signOut()
+            }
+
+        } else {
+            // 다른 사람 페이지
+            binding.accountBtnFollowSignout.text = getString(R.string.follow)
+            var mainActivity = (activity as MainActivity)
+            mainActivity?.findViewById<TextView>(R.id.toolbar_username)?.text = arguments?.getString("userid")
+            mainActivity?.findViewById<ImageView>(R.id.toolbar_btn_back)?.setOnClickListener {
+                mainActivity.findViewById<BottomNavigationView>(R.id.bottom_navigation).selectedItemId = R.id.action_home
+            }
+            mainActivity?.findViewById<ImageView>(R.id.toolbar_title_image)?.visibility = View.GONE
+            mainActivity?.findViewById<TextView>(R.id.toolbar_username)?.visibility = View.VISIBLE
+            mainActivity?.findViewById<ImageView>(R.id.toolbar_btn_back)?.visibility = View.VISIBLE
+        }
         binding.accountRecyclerview.adapter = UserFragmentRecyclerViewAdapter()
         binding.accountRecyclerview.layoutManager = GridLayoutManager(activity, 3)
         return binding.root
