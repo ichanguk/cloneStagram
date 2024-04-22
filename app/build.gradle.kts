@@ -49,6 +49,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore:24.11.1")
+
+    implementation("com.google.firebase:firebase-analytics-ktx:21.6.2")
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -59,6 +62,8 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.firebase.database)
     implementation(libs.glide)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.databinding.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
