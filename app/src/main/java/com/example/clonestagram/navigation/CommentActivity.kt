@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.clonestagram.R
 import com.example.clonestagram.databinding.ActivityCommentBinding
+import com.example.clonestagram.navigation.model.AlarmDTO
 import com.example.clonestagram.navigation.model.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.toObject
 class CommentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCommentBinding
     var contentUid: String? = null
+    var destinationUid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,7 @@ class CommentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         contentUid = intent.getStringExtra("contentUid")
+        destinationUid = intent.getStringExtra("destinationUid")
 
         binding.commentRecyclerview.adapter = CommentRecyclerviewAdapter()
         binding.commentRecyclerview.layoutManager = LinearLayoutManager(this)
@@ -51,9 +54,20 @@ class CommentActivity : AppCompatActivity() {
 
             FirebaseFirestore.getInstance().collection("images").document(contentUid!!)
                 .collection("comments").document().set(comment)
+            commentAlarm(destinationUid!!, binding.commentEditMessage.text.toString())
             binding.commentEditMessage.setText("")
         }
 
+    }
+    fun commentAlarm(destinationUid: String, message: String) {
+        var alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+        alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+        alarmDTO.timestamp = System.currentTimeMillis()
+        alarmDTO.message = message
+
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
     }
 
     inner class CommentRecyclerviewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

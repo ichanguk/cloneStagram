@@ -20,6 +20,7 @@ import com.example.clonestagram.LoginActivity
 import com.example.clonestagram.MainActivity
 import com.example.clonestagram.R
 import com.example.clonestagram.databinding.FragmentUserBinding
+import com.example.clonestagram.navigation.model.AlarmDTO
 import com.example.clonestagram.navigation.model.ContentDTO
 import com.example.clonestagram.navigation.model.FollowDTO
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -144,6 +145,7 @@ class UserFragment : Fragment() {
                 followDTO = FollowDTO()
                 followDTO!!.followerCount = 1
                 followDTO!!.followers[currentUserUid!!] = true
+                followerAlarm(uid!!)
 
                 transaction.set(tsDocFollower, followDTO!!)
                 return@runTransaction
@@ -158,6 +160,7 @@ class UserFragment : Fragment() {
                 // follow
                 followDTO?.followerCount = followDTO?.followerCount!! + 1
                 followDTO?.followers?.set(currentUserUid!!, true)
+                followerAlarm(uid!!)
             }
             transaction.set(tsDocFollower, followDTO!!)
             return@runTransaction
@@ -218,5 +221,15 @@ class UserFragment : Fragment() {
                 Glide.with(requireActivity()).load(url).apply(RequestOptions().circleCrop()).into(binding.accountIvProfile)
             }
         }
+    }
+
+    fun followerAlarm(destinationUid: String) {
+        var alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userId = auth?.currentUser?.email
+        alarmDTO.uid = auth?.currentUser?.uid
+        alarmDTO.kind = 2
+        alarmDTO.timestamp = System.currentTimeMillis()
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
     }
 }
