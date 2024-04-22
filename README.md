@@ -15,6 +15,10 @@
 
 <img src=https://github.com/ichanguk/cloneStagram/blob/master/images/user.png width="200" height="350"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EA%B2%A9%EC%9E%90.png width="200" height="350">
 
+6. 덧글 페이지　　　　　7. 알람 리스트 페이지
+
+<img src=https://github.com/ichanguk/cloneStagram/blob/master/images/%EB%8D%A7%EA%B8%80%ED%8E%98%EC%9D%B4%EC%A7%80.png width="200" height="350"><img src=https://github.com/ichanguk/cloneStagram/blob/master/images/alarmList.png width="200" height="350">
+
 1. 로그인 화면
 - 회원가입 및 로그인 기능
 
@@ -31,7 +35,11 @@
 5. 격자무늬 사진 페이지 화면
 - 게시물들
 
-## *추가 예정*
-- 덧글 페이지
-- 알람 이벤트 및 알람 리스트 페이지
-- 푸시 이벤트
+6. 덧글 페이지
+- 덧글들을 보여줌
+
+7. 알람 이벤트 및 알람 리스트 페이지
+- 알람(좋아요, 팔로우, 덧글) 표시
+
+## *개선해야할 사항*
+- 푸시 이벤트 추가(버전 오류로 실패)
